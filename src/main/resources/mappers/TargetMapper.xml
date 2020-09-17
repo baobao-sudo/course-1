@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.dao.TargetMapper">
+  <resultMap id="BaseResultMap" type="com.course.model.Target">
+    <id column="target_id" jdbcType="INTEGER" property="targetId" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="order" jdbcType="INTEGER" property="order" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from target
+    where target_id = #{targetId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.course.model.Target">
+    insert into target (target_id, major, course_id, 
+      `order`, `type`)
+    values (#{targetId,jdbcType=INTEGER}, #{major,jdbcType=VARCHAR}, #{courseId,jdbcType=INTEGER}, 
+      #{order,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.course.model.Target">
+    update target
+    set major = #{major,jdbcType=VARCHAR},
+      course_id = #{courseId,jdbcType=INTEGER},
+      `order` = #{order,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=VARCHAR}
+    where target_id = #{targetId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select target_id, major, course_id, `order`, `type`
+    from target
+    where target_id = #{targetId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select target_id, major, course_id, `order`, `type`
+    from target
+  </select>
+</mapper>

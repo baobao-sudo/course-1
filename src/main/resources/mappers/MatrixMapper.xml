@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.dao.MatrixMapper">
+  <resultMap id="BaseResultMap" type="com.course.model.Matrix">
+    <id column="matrix_id" jdbcType="INTEGER" property="matrixId" />
+    <result column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="first_requirement_id" jdbcType="INTEGER" property="firstRequirementId" />
+    <result column="second_requirement_id" jdbcType="INTEGER" property="secondRequirementId" />
+    <result column="weight" jdbcType="DOUBLE" property="weight" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from matrix
+    where matrix_id = #{matrixId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.course.model.Matrix">
+    insert into matrix (matrix_id, type_id, course_id, 
+      `count`, first_requirement_id, second_requirement_id, 
+      weight)
+    values (#{matrixId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, 
+      #{count,jdbcType=INTEGER}, #{firstRequirementId,jdbcType=INTEGER}, #{secondRequirementId,jdbcType=INTEGER}, 
+      #{weight,jdbcType=DOUBLE})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.course.model.Matrix">
+    update matrix
+    set type_id = #{typeId,jdbcType=INTEGER},
+      course_id = #{courseId,jdbcType=INTEGER},
+      `count` = #{count,jdbcType=INTEGER},
+      first_requirement_id = #{firstRequirementId,jdbcType=INTEGER},
+      second_requirement_id = #{secondRequirementId,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=DOUBLE}
+    where matrix_id = #{matrixId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select matrix_id, type_id, course_id, `count`, first_requirement_id, second_requirement_id, 
+    weight
+    from matrix
+    where matrix_id = #{matrixId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select matrix_id, type_id, course_id, `count`, first_requirement_id, second_requirement_id, 
+    weight
+    from matrix
+  </select>
+</mapper>

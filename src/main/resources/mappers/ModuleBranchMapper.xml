@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.dao.ModuleBranchMapper">
+  <resultMap id="BaseResultMap" type="com.course.model.ModuleBranch">
+    <id column="module_branch_id" jdbcType="INTEGER" property="moduleBranchId" />
+    <result column="module_id" jdbcType="INTEGER" property="moduleId" />
+    <result column="partition" jdbcType="DECIMAL" property="partition" />
+    <result column="second_requirement_id" jdbcType="INTEGER" property="secondRequirementId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from module_branch
+    where module_branch_id = #{moduleBranchId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.course.model.ModuleBranch">
+    insert into module_branch (module_branch_id, module_id, `partition`, 
+      second_requirement_id)
+    values (#{moduleBranchId,jdbcType=INTEGER}, #{moduleId,jdbcType=INTEGER}, #{partition,jdbcType=DECIMAL}, 
+      #{secondRequirementId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.course.model.ModuleBranch">
+    update module_branch
+    set module_id = #{moduleId,jdbcType=INTEGER},
+      `partition` = #{partition,jdbcType=DECIMAL},
+      second_requirement_id = #{secondRequirementId,jdbcType=INTEGER}
+    where module_branch_id = #{moduleBranchId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select module_branch_id, module_id, `partition`, second_requirement_id
+    from module_branch
+    where module_branch_id = #{moduleBranchId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select module_branch_id, module_id, `partition`, second_requirement_id
+    from module_branch
+  </select>
+</mapper>

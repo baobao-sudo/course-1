@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.dao.PointScoreMapper">
+  <resultMap id="BaseResultMap" type="com.course.model.PointScore">
+    <id column="point_score_id" jdbcType="INTEGER" property="pointScoreId" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="student_no" jdbcType="INTEGER" property="studentNo" />
+    <result column="second_requirement_id" jdbcType="INTEGER" property="secondRequirementId" />
+    <result column="point_score" jdbcType="DOUBLE" property="pointScore" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from point_score
+    where point_score_id = #{pointScoreId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.course.model.PointScore">
+    insert into point_score (point_score_id, course_id, student_no, 
+      second_requirement_id, point_score)
+    values (#{pointScoreId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{studentNo,jdbcType=INTEGER}, 
+      #{secondRequirementId,jdbcType=INTEGER}, #{pointScore,jdbcType=DOUBLE})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.course.model.PointScore">
+    update point_score
+    set course_id = #{courseId,jdbcType=INTEGER},
+      student_no = #{studentNo,jdbcType=INTEGER},
+      second_requirement_id = #{secondRequirementId,jdbcType=INTEGER},
+      point_score = #{pointScore,jdbcType=DOUBLE}
+    where point_score_id = #{pointScoreId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select point_score_id, course_id, student_no, second_requirement_id, point_score
+    from point_score
+    where point_score_id = #{pointScoreId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select point_score_id, course_id, student_no, second_requirement_id, point_score
+    from point_score
+  </select>
+</mapper>

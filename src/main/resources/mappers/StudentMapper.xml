@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.dao.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.course.model.Student">
+    <id column="stu_id" jdbcType="INTEGER" property="stuId" />
+    <result column="stu_no" jdbcType="INTEGER" property="stuNo" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="one" jdbcType="DOUBLE" property="one" />
+    <result column="two" jdbcType="DOUBLE" property="two" />
+    <result column="three" jdbcType="DOUBLE" property="three" />
+    <result column="four" jdbcType="DOUBLE" property="four" />
+    <result column="five" jdbcType="DOUBLE" property="five" />
+    <result column="six" jdbcType="DOUBLE" property="six" />
+    <result column="seven" jdbcType="DOUBLE" property="seven" />
+    <result column="eight" jdbcType="DOUBLE" property="eight" />
+    <result column="nine" jdbcType="DOUBLE" property="nine" />
+    <result column="ten" jdbcType="DOUBLE" property="ten" />
+    <result column="eleven" jdbcType="DOUBLE" property="eleven" />
+    <result column="twelve" jdbcType="DOUBLE" property="twelve" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from student
+    where stu_id = #{stuId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.course.model.Student">
+    insert into student (stu_id, stu_no, grade, 
+      major, `name`, phone, 
+      email, one, two, three, 
+      four, five, six, seven, 
+      eight, nine, ten, eleven, 
+      twelve)
+    values (#{stuId,jdbcType=INTEGER}, #{stuNo,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, 
+      #{major,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{one,jdbcType=DOUBLE}, #{two,jdbcType=DOUBLE}, #{three,jdbcType=DOUBLE}, 
+      #{four,jdbcType=DOUBLE}, #{five,jdbcType=DOUBLE}, #{six,jdbcType=DOUBLE}, #{seven,jdbcType=DOUBLE}, 
+      #{eight,jdbcType=DOUBLE}, #{nine,jdbcType=DOUBLE}, #{ten,jdbcType=DOUBLE}, #{eleven,jdbcType=DOUBLE}, 
+      #{twelve,jdbcType=DOUBLE})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.course.model.Student">
+    update student
+    set stu_no = #{stuNo,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=INTEGER},
+      major = #{major,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      one = #{one,jdbcType=DOUBLE},
+      two = #{two,jdbcType=DOUBLE},
+      three = #{three,jdbcType=DOUBLE},
+      four = #{four,jdbcType=DOUBLE},
+      five = #{five,jdbcType=DOUBLE},
+      six = #{six,jdbcType=DOUBLE},
+      seven = #{seven,jdbcType=DOUBLE},
+      eight = #{eight,jdbcType=DOUBLE},
+      nine = #{nine,jdbcType=DOUBLE},
+      ten = #{ten,jdbcType=DOUBLE},
+      eleven = #{eleven,jdbcType=DOUBLE},
+      twelve = #{twelve,jdbcType=DOUBLE}
+    where stu_id = #{stuId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select stu_id, stu_no, grade, major, `name`, phone, email, one, two, three, four, 
+    five, six, seven, eight, nine, ten, eleven, twelve
+    from student
+    where stu_id = #{stuId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select stu_id, stu_no, grade, major, `name`, phone, email, one, two, three, four, 
+    five, six, seven, eight, nine, ten, eleven, twelve
+    from student
+  </select>
+</mapper>
