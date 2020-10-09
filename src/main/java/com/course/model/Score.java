@@ -1,23 +1,40 @@
 package com.course.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Score implements Serializable {
     private Integer stuNo;
 
-    private Integer courseId;
+    private Integer majorCourseId;
 
     private BigDecimal totalScore;
 
     private static final long serialVersionUID = 1L;
+
+    public Integer getStuNo() {
+        return stuNo;
+    }
+
+    public void setStuNo(Integer stuNo) {
+        this.stuNo = stuNo;
+    }
+
+    public Integer getMajorCourseId() {
+        return majorCourseId;
+    }
+
+    public void setMajorCourseId(Integer majorCourseId) {
+        this.majorCourseId = majorCourseId;
+    }
+
+    public BigDecimal getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(BigDecimal totalScore) {
+        this.totalScore = totalScore;
+    }
 
     @Override
     public String toString() {
@@ -26,7 +43,7 @@ public class Score implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", stuNo=").append(stuNo);
-        sb.append(", courseId=").append(courseId);
+        sb.append(", majorCourseId=").append(majorCourseId);
         sb.append(", totalScore=").append(totalScore);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

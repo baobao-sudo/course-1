@@ -4,11 +4,11 @@ import com.course.model.SecondRequirement;
 import java.util.List;
 
 public interface SecondRequirementMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer secondRequirementId);
 
     int insert(SecondRequirement record);
 
-    SecondRequirement selectByPrimaryKey(Integer id);
+    SecondRequirement selectByPrimaryKey(Integer secondRequirementId);
 
     List<SecondRequirement> selectAll();
 

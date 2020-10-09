@@ -1,26 +1,69 @@
 package com.course.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Target implements Serializable {
     private Integer targetId;
 
-    private String major;
-
-    private Integer courseId;
+    private Integer majorCourseId;
 
     private Integer order;
 
-    private String type;
+    private String description;
+
+    private String targetName;
+
+    private Integer secondRequirementId;
 
     private static final long serialVersionUID = 1L;
+
+    public Integer getTargetId() {
+        return targetId;
+    }
+
+    public void setTargetId(Integer targetId) {
+        this.targetId = targetId;
+    }
+
+    public Integer getMajorCourseId() {
+        return majorCourseId;
+    }
+
+    public void setMajorCourseId(Integer majorCourseId) {
+        this.majorCourseId = majorCourseId;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
+    public String getTargetName() {
+        return targetName;
+    }
+
+    public void setTargetName(String targetName) {
+        this.targetName = targetName == null ? null : targetName.trim();
+    }
+
+    public Integer getSecondRequirementId() {
+        return secondRequirementId;
+    }
+
+    public void setSecondRequirementId(Integer secondRequirementId) {
+        this.secondRequirementId = secondRequirementId;
+    }
 
     @Override
     public String toString() {
@@ -29,10 +72,11 @@ public class Target implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", targetId=").append(targetId);
-        sb.append(", major=").append(major);
-        sb.append(", courseId=").append(courseId);
+        sb.append(", majorCourseId=").append(majorCourseId);
         sb.append(", order=").append(order);
-        sb.append(", type=").append(type);
+        sb.append(", description=").append(description);
+        sb.append(", targetName=").append(targetName);
+        sb.append(", secondRequirementId=").append(secondRequirementId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

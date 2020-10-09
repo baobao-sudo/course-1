@@ -1,24 +1,50 @@
 package com.course.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
+import java.math.BigDecimal;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ScoreModule implements Serializable {
     private Integer moduleId;
 
-    private Integer courseId;
+    private Integer planId;
 
     private String moduleName;
 
-    private Double percentage;
+    private BigDecimal percentage;
 
     private static final long serialVersionUID = 1L;
+
+    public Integer getModuleId() {
+        return moduleId;
+    }
+
+    public void setModuleId(Integer moduleId) {
+        this.moduleId = moduleId;
+    }
+
+    public Integer getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(Integer planId) {
+        this.planId = planId;
+    }
+
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName == null ? null : moduleName.trim();
+    }
+
+    public BigDecimal getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(BigDecimal percentage) {
+        this.percentage = percentage;
+    }
 
     @Override
     public String toString() {
@@ -27,7 +53,7 @@ public class ScoreModule implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", moduleId=").append(moduleId);
-        sb.append(", courseId=").append(courseId);
+        sb.append(", planId=").append(planId);
         sb.append(", moduleName=").append(moduleName);
         sb.append(", percentage=").append(percentage);
         sb.append(", serialVersionUID=").append(serialVersionUID);

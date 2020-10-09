@@ -5,29 +5,46 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
+/**
+ *@ClassName Course
+ *@Description 课程表
+ *@Author Lenovo
+ *@Date 2020/10/7
+ *@Version 1.0
+**/
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Course implements Serializable {
     private Integer courseId;
 
-    private Integer grade;
-
     private Integer credit;
-
-    private String major;
 
     private String name;
 
-    private Integer term;
-
-    private Integer status;
-
-    private Date computeTime;
-
     private static final long serialVersionUID = 1L;
+
+    public Integer getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
+    public Integer getCredit() {
+        return credit;
+    }
+
+    public void setCredit(Integer credit) {
+        this.credit = credit;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
 
     @Override
     public String toString() {
@@ -36,13 +53,8 @@ public class Course implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", courseId=").append(courseId);
-        sb.append(", grade=").append(grade);
         sb.append(", credit=").append(credit);
-        sb.append(", major=").append(major);
         sb.append(", name=").append(name);
-        sb.append(", term=").append(term);
-        sb.append(", status=").append(status);
-        sb.append(", computeTime=").append(computeTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

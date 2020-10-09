@@ -12,10 +12,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -31,10 +33,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    /**
-     * @param
-     * @return
-     */
+
     @PostMapping("/insertUser")
     @ApiOperation("注册用户")
     public ResultVO insertUser(UserRegisterForm registerForm){
@@ -54,6 +53,13 @@ public class UserController {
         User user = userService.getCurrentUser();
         log.info(user.toString());
         return ResultVOUtil.success();
+    }
+
+
+    @GetMapping("/captcha")
+    @ApiOperation("获取图片验证码")
+    public ResultVO captcha(HttpServletRequest request, HttpServletResponse response){
+        return userService.captcha(request,response);
     }
 
 }

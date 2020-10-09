@@ -27,6 +27,8 @@ import java.util.List;
 @EnableWebMvc
 public class SwaggerConfig extends WebMvcConfigurerAdapter {
 
+
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html")
@@ -60,7 +62,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("憨批")
+                .title("课程设计")
                 .description("前端根据接口进行测试")
                 .termsOfServiceUrl("")
                 .version("1.0")

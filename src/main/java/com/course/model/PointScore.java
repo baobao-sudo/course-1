@@ -1,26 +1,60 @@
 package com.course.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
+import java.math.BigDecimal;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class PointScore implements Serializable {
     private Integer pointScoreId;
 
-    private Integer courseId;
+    private Integer majorCourseId;
 
-    private Integer studentNo;
+    private String studentNo;
 
     private Integer secondRequirementId;
 
-    private Double pointScore;
+    private BigDecimal pointScore;
 
     private static final long serialVersionUID = 1L;
+
+    public Integer getPointScoreId() {
+        return pointScoreId;
+    }
+
+    public void setPointScoreId(Integer pointScoreId) {
+        this.pointScoreId = pointScoreId;
+    }
+
+    public Integer getMajorCourseId() {
+        return majorCourseId;
+    }
+
+    public void setMajorCourseId(Integer majorCourseId) {
+        this.majorCourseId = majorCourseId;
+    }
+
+    public String getStudentNo() {
+        return studentNo;
+    }
+
+    public void setStudentNo(String studentNo) {
+        this.studentNo = studentNo == null ? null : studentNo.trim();
+    }
+
+    public Integer getSecondRequirementId() {
+        return secondRequirementId;
+    }
+
+    public void setSecondRequirementId(Integer secondRequirementId) {
+        this.secondRequirementId = secondRequirementId;
+    }
+
+    public BigDecimal getPointScore() {
+        return pointScore;
+    }
+
+    public void setPointScore(BigDecimal pointScore) {
+        this.pointScore = pointScore;
+    }
 
     @Override
     public String toString() {
@@ -29,7 +63,7 @@ public class PointScore implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", pointScoreId=").append(pointScoreId);
-        sb.append(", courseId=").append(courseId);
+        sb.append(", majorCourseId=").append(majorCourseId);
         sb.append(", studentNo=").append(studentNo);
         sb.append(", secondRequirementId=").append(secondRequirementId);
         sb.append(", pointScore=").append(pointScore);

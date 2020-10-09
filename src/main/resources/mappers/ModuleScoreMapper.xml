@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.course.dao.ModuleScoreMapper" >
+  <resultMap id="BaseResultMap" type="com.course.model.ModuleScore" >
+    <id column="module_score_id" property="moduleScoreId" jdbcType="INTEGER" />
+    <result column="stu_no" property="stuNo" jdbcType="VARCHAR" />
+    <result column="module_id" property="moduleId" jdbcType="INTEGER" />
+    <result column="point" property="point" jdbcType="DECIMAL" />
+    <result column="module_score_status" property="moduleScoreStatus" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from module_score
+    where module_score_id = #{moduleScoreId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.course.model.ModuleScore" >
+    insert into module_score (module_score_id, stu_no, module_id, 
+      point, module_score_status)
+    values (#{moduleScoreId,jdbcType=INTEGER}, #{stuNo,jdbcType=VARCHAR}, #{moduleId,jdbcType=INTEGER}, 
+      #{point,jdbcType=DECIMAL}, #{moduleScoreStatus,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.course.model.ModuleScore" >
+    update module_score
+    set stu_no = #{stuNo,jdbcType=VARCHAR},
+      module_id = #{moduleId,jdbcType=INTEGER},
+      point = #{point,jdbcType=DECIMAL},
+      module_score_status = #{moduleScoreStatus,jdbcType=INTEGER}
+    where module_score_id = #{moduleScoreId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select module_score_id, stu_no, module_id, point, module_score_status
+    from module_score
+    where module_score_id = #{moduleScoreId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select module_score_id, stu_no, module_id, point, module_score_status
+    from module_score
+  </select>
+</mapper>

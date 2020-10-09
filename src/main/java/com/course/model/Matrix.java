@@ -1,20 +1,11 @@
 package com.course.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Matrix implements Serializable {
     private Integer matrixId;
 
-    private Integer typeId;
-
-    private Integer courseId;
+    private Integer majorCourseId;
 
     private Integer count;
 
@@ -26,6 +17,54 @@ public class Matrix implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public Integer getMatrixId() {
+        return matrixId;
+    }
+
+    public void setMatrixId(Integer matrixId) {
+        this.matrixId = matrixId;
+    }
+
+    public Integer getMajorCourseId() {
+        return majorCourseId;
+    }
+
+    public void setMajorCourseId(Integer majorCourseId) {
+        this.majorCourseId = majorCourseId;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Integer getFirstRequirementId() {
+        return firstRequirementId;
+    }
+
+    public void setFirstRequirementId(Integer firstRequirementId) {
+        this.firstRequirementId = firstRequirementId;
+    }
+
+    public Integer getSecondRequirementId() {
+        return secondRequirementId;
+    }
+
+    public void setSecondRequirementId(Integer secondRequirementId) {
+        this.secondRequirementId = secondRequirementId;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -33,8 +72,7 @@ public class Matrix implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", matrixId=").append(matrixId);
-        sb.append(", typeId=").append(typeId);
-        sb.append(", courseId=").append(courseId);
+        sb.append(", majorCourseId=").append(majorCourseId);
         sb.append(", count=").append(count);
         sb.append(", firstRequirementId=").append(firstRequirementId);
         sb.append(", secondRequirementId=").append(secondRequirementId);

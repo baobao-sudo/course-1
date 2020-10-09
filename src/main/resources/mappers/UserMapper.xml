@@ -1,25 +1,51 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.course.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.course.model.User">
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="card_id" jdbcType="VARCHAR" property="cardId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="role" jdbcType="INTEGER" property="role" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.course.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.course.model.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="card_id" property="cardId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="major_id" property="majorId" jdbcType="INTEGER" />
   </resultMap>
-  <insert id="insert" parameterType="com.course.model.User">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.course.model.User" >
     insert into user (user_id, card_id, `name`, 
-      `password`, `role`)
+      `password`, `role`, photo, 
+      major_id)
     values (#{userId,jdbcType=INTEGER}, #{cardId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER})
+      #{password,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{photo,jdbcType=VARCHAR}, 
+      #{majorId,jdbcType=INTEGER})
   </insert>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select user_id, card_id, `name`, `password`, `role`
+  <update id="updateByPrimaryKey" parameterType="com.course.model.User" >
+    update user
+    set card_id = #{cardId,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      `role` = #{role,jdbcType=INTEGER},
+      photo = #{photo,jdbcType=VARCHAR},
+      major_id = #{majorId,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select user_id, card_id, `name`, `password`, `role`, photo, major_id
+    from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select user_id, card_id, `name`, `password`, `role`, photo, major_id
     from user
   </select>
-  <select id="selectUserByUsername" resultMap="BaseResultMap">
-    select user_id, card_id, `name`, `password`, `role`
-    from user where name = #{username}
+  <select id="selectUserByUsername" resultMap="BaseResultMap" parameterType="java.lang.String" >
+   select user_id, card_id, `name`, `password`, `role`, photo, major_id
+    from user
+    where card_id = #{cardId,jdbcType=VARCHAR}
   </select>
+
+
 </mapper>

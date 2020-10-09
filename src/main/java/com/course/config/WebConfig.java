@@ -15,6 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private AuthRoleInterceptor authRoleInterceptor;
 
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authRoleInterceptor);

@@ -3,34 +3,40 @@
 <mapper namespace="com.course.dao.PlanMapper">
   <resultMap id="BaseResultMap" type="com.course.model.Plan">
     <id column="plan_id" jdbcType="INTEGER" property="planId" />
-    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column=" major_course_id" jdbcType="INTEGER" property="majorCourseId" />
     <result column="term" jdbcType="INTEGER" property="term" />
     <result column="teacher_id" jdbcType="INTEGER" property="teacherId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="compute_time" jdbcType="TIMESTAMP" property="computeTime" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from plan
     where plan_id = #{planId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.course.model.Plan">
-    insert into plan (plan_id, course_id, term, 
-      teacher_id)
-    values (#{planId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{term,jdbcType=INTEGER}, 
-      #{teacherId,jdbcType=INTEGER})
+    insert into plan (plan_id, ` major_course_id`, term, 
+      teacher_id, `status`, compute_time
+      )
+    values (#{planId,jdbcType=INTEGER}, #{majorCourseId,jdbcType=INTEGER}, #{term,jdbcType=INTEGER}, 
+      #{teacherId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{computeTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.course.model.Plan">
     update plan
-    set course_id = #{courseId,jdbcType=INTEGER},
+    set ` major_course_id` = #{majorCourseId,jdbcType=INTEGER},
       term = #{term,jdbcType=INTEGER},
-      teacher_id = #{teacherId,jdbcType=INTEGER}
+      teacher_id = #{teacherId,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
+      compute_time = #{computeTime,jdbcType=TIMESTAMP}
     where plan_id = #{planId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select plan_id, course_id, term, teacher_id
+    select plan_id, ` major_course_id`, term, teacher_id, `status`, compute_time
     from plan
     where plan_id = #{planId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select plan_id, course_id, term, teacher_id
+    select plan_id, ` major_course_id`, term, teacher_id, `status`, compute_time
     from plan
   </select>
 </mapper>

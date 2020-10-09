@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.dao.MajorCourseMapper">
+  <resultMap id="BaseResultMap" type="com.course.model.MajorCourse">
+    <id column=" major_course_id" jdbcType="INTEGER" property="majorCourseId" />
+    <result column=" major_id" jdbcType="INTEGER" property="majorId" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="type_id" jdbcType="INTEGER" property="typeId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from major_course
+    where ` major_course_id` = #{majorCourseId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.course.model.MajorCourse">
+    insert into major_course (` major_course_id`, ` major_id`, grade, 
+      course_id, type_id)
+    values (#{majorCourseId,jdbcType=INTEGER}, #{majorId,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, 
+      #{courseId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.course.model.MajorCourse">
+    update major_course
+    set ` major_id` = #{majorId,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=INTEGER},
+      course_id = #{courseId,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER}
+    where ` major_course_id` = #{majorCourseId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select ` major_course_id`, ` major_id`, grade, course_id, type_id
+    from major_course
+    where ` major_course_id` = #{majorCourseId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ` major_course_id`, ` major_id`, grade, course_id, type_id
+    from major_course
+  </select>
+</mapper>

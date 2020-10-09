@@ -1,34 +1,34 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.course.dao.ScoreMapper">
-  <resultMap id="BaseResultMap" type="com.course.model.Score">
-    <id column="stu_no" jdbcType="INTEGER" property="stuNo" />
-    <result column="course_id" jdbcType="INTEGER" property="courseId" />
-    <result column="total_score" jdbcType="DECIMAL" property="totalScore" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.course.dao.ScoreMapper" >
+  <resultMap id="BaseResultMap" type="com.course.model.Score" >
+    <id column="stu_no" property="stuNo" jdbcType="INTEGER" />
+    <result column="major_course_id" property="majorCourseId" jdbcType="INTEGER" />
+    <result column="total_score" property="totalScore" jdbcType="DECIMAL" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from score
     where stu_no = #{stuNo,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.course.model.Score">
-    insert into score (stu_no, course_id, total_score
+  <insert id="insert" parameterType="com.course.model.Score" >
+    insert into score (stu_no, major_course_id, total_score
       )
-    values (#{stuNo,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{totalScore,jdbcType=DECIMAL}
+    values (#{stuNo,jdbcType=INTEGER}, #{majorCourseId,jdbcType=INTEGER}, #{totalScore,jdbcType=DECIMAL}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.course.model.Score">
+  <update id="updateByPrimaryKey" parameterType="com.course.model.Score" >
     update score
-    set course_id = #{courseId,jdbcType=INTEGER},
+    set major_course_id = #{majorCourseId,jdbcType=INTEGER},
       total_score = #{totalScore,jdbcType=DECIMAL}
     where stu_no = #{stuNo,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select stu_no, course_id, total_score
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select stu_no, major_course_id, total_score
     from score
     where stu_no = #{stuNo,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select stu_no, course_id, total_score
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select stu_no, major_course_id, total_score
     from score
   </select>
 </mapper>

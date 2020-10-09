@@ -3,44 +3,32 @@
 <mapper namespace="com.course.dao.CourseMapper">
   <resultMap id="BaseResultMap" type="com.course.model.Course">
     <id column="course_id" jdbcType="INTEGER" property="courseId" />
-    <result column="grade" jdbcType="INTEGER" property="grade" />
     <result column="credit" jdbcType="INTEGER" property="credit" />
-    <result column="major" jdbcType="VARCHAR" property="major" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="term" jdbcType="INTEGER" property="term" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="compute_time" jdbcType="TIMESTAMP" property="computeTime" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from course
     where course_id = #{courseId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.course.model.Course">
-    insert into course (course_id, grade, credit, 
-      major, `name`, term, 
-      `status`, compute_time)
-    values (#{courseId,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, #{credit,jdbcType=INTEGER}, 
-      #{major,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{term,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{computeTime,jdbcType=TIMESTAMP})
+    insert into course (course_id, credit, `name`
+      )
+    values (#{courseId,jdbcType=INTEGER}, #{credit,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}
+      )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.course.model.Course">
     update course
-    set grade = #{grade,jdbcType=INTEGER},
-      credit = #{credit,jdbcType=INTEGER},
-      major = #{major,jdbcType=VARCHAR},
-      `name` = #{name,jdbcType=VARCHAR},
-      term = #{term,jdbcType=INTEGER},
-      `status` = #{status,jdbcType=INTEGER},
-      compute_time = #{computeTime,jdbcType=TIMESTAMP}
+    set credit = #{credit,jdbcType=INTEGER},
+      `name` = #{name,jdbcType=VARCHAR}
     where course_id = #{courseId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select course_id, grade, credit, major, `name`, term, `status`, compute_time
+    select course_id, credit, `name`
     from course
     where course_id = #{courseId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select course_id, grade, credit, major, `name`, term, `status`, compute_time
+    select course_id, credit, `name`
     from course
   </select>
 </mapper>

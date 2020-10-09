@@ -1,36 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.course.dao.ScoreModuleMapper">
-  <resultMap id="BaseResultMap" type="com.course.model.ScoreModule">
-    <id column="module_id" jdbcType="INTEGER" property="moduleId" />
-    <result column="course_id" jdbcType="INTEGER" property="courseId" />
-    <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
-    <result column="percentage" jdbcType="DOUBLE" property="percentage" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.course.dao.ScoreModuleMapper" >
+  <resultMap id="BaseResultMap" type="com.course.model.ScoreModule" >
+    <id column="module_id" property="moduleId" jdbcType="INTEGER" />
+    <result column="plan_id" property="planId" jdbcType="INTEGER" />
+    <result column="module_name" property="moduleName" jdbcType="VARCHAR" />
+    <result column="percentage" property="percentage" jdbcType="DECIMAL" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from score_module
     where module_id = #{moduleId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.course.model.ScoreModule">
-    insert into score_module (module_id, course_id, module_name, 
+  <insert id="insert" parameterType="com.course.model.ScoreModule" >
+    insert into score_module (module_id, plan_id, module_name, 
       percentage)
-    values (#{moduleId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{moduleName,jdbcType=VARCHAR}, 
-      #{percentage,jdbcType=DOUBLE})
+    values (#{moduleId,jdbcType=INTEGER}, #{planId,jdbcType=INTEGER}, #{moduleName,jdbcType=VARCHAR}, 
+      #{percentage,jdbcType=DECIMAL})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.course.model.ScoreModule">
+  <update id="updateByPrimaryKey" parameterType="com.course.model.ScoreModule" >
     update score_module
-    set course_id = #{courseId,jdbcType=INTEGER},
+    set plan_id = #{planId,jdbcType=INTEGER},
       module_name = #{moduleName,jdbcType=VARCHAR},
-      percentage = #{percentage,jdbcType=DOUBLE}
+      percentage = #{percentage,jdbcType=DECIMAL}
     where module_id = #{moduleId,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select module_id, course_id, module_name, percentage
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select module_id, plan_id, module_name, percentage
     from score_module
     where module_id = #{moduleId,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select module_id, course_id, module_name, percentage
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select module_id, plan_id, module_name, percentage
     from score_module
   </select>
 </mapper>

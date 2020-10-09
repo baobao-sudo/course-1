@@ -3,9 +3,9 @@
 <mapper namespace="com.course.dao.StudentMapper">
   <resultMap id="BaseResultMap" type="com.course.model.Student">
     <id column="stu_id" jdbcType="INTEGER" property="stuId" />
-    <result column="stu_no" jdbcType="INTEGER" property="stuNo" />
+    <result column="stu_no" jdbcType="VARCHAR" property="stuNo" />
     <result column="grade" jdbcType="INTEGER" property="grade" />
-    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="major_id" jdbcType="INTEGER" property="majorId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
@@ -28,13 +28,13 @@
   </delete>
   <insert id="insert" parameterType="com.course.model.Student">
     insert into student (stu_id, stu_no, grade, 
-      major, `name`, phone, 
+      major_id, `name`, phone, 
       email, one, two, three, 
       four, five, six, seven, 
       eight, nine, ten, eleven, 
       twelve)
-    values (#{stuId,jdbcType=INTEGER}, #{stuNo,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, 
-      #{major,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+    values (#{stuId,jdbcType=INTEGER}, #{stuNo,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER}, 
+      #{majorId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{one,jdbcType=DOUBLE}, #{two,jdbcType=DOUBLE}, #{three,jdbcType=DOUBLE}, 
       #{four,jdbcType=DOUBLE}, #{five,jdbcType=DOUBLE}, #{six,jdbcType=DOUBLE}, #{seven,jdbcType=DOUBLE}, 
       #{eight,jdbcType=DOUBLE}, #{nine,jdbcType=DOUBLE}, #{ten,jdbcType=DOUBLE}, #{eleven,jdbcType=DOUBLE}, 
@@ -42,9 +42,9 @@
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.course.model.Student">
     update student
-    set stu_no = #{stuNo,jdbcType=INTEGER},
+    set stu_no = #{stuNo,jdbcType=VARCHAR},
       grade = #{grade,jdbcType=INTEGER},
-      major = #{major,jdbcType=VARCHAR},
+      major_id = #{majorId,jdbcType=INTEGER},
       `name` = #{name,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
@@ -63,14 +63,19 @@
     where stu_id = #{stuId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select stu_id, stu_no, grade, major, `name`, phone, email, one, two, three, four, 
+    select stu_id, stu_no, grade, major_id, `name`, phone, email, one, two, three, four, 
     five, six, seven, eight, nine, ten, eleven, twelve
     from student
     where stu_id = #{stuId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select stu_id, stu_no, grade, major, `name`, phone, email, one, two, three, four, 
+    select stu_id, stu_no, grade, major_id, `name`, phone, email, one, two, three, four, 
     five, six, seven, eight, nine, ten, eleven, twelve
     from student
+  </select>
+  <select id="selectMaxGrade" resultType="integer" parameterType="integer">
+    select max (grade)
+    from student
+    where major_id = #{majorId,jdbcType=INTEGER}
   </select>
 </mapper>

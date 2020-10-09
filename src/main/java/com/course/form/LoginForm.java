@@ -16,4 +16,10 @@ public class LoginForm {
     @ApiModelProperty("密码")
     private String password;
 
+    @ApiModelProperty("验证码")
+    private String verCode;
+
+    @ApiModelProperty("验证码主键")
+    private String verKey;
+
 }

@@ -2,10 +2,12 @@ package com.course.service;
 
 import com.course.form.LoginForm;
 import com.course.form.UserRegisterForm;
+import com.course.form.UserUpdatePwForm;
 import com.course.model.User;
 import com.course.vo.ResultVO;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -44,5 +46,29 @@ public interface UserService {
      * @return
      */
     ResultVO login(LoginForm loginForm, HttpServletResponse response);
+
+    /**
+     * 生成验证码图片
+     * @param request
+     * @param response
+     * @return
+     */
+    ResultVO captcha(HttpServletRequest request,HttpServletResponse response);
+
+    /**
+     * 修改密码
+     * @param userUpdatePwForm
+     * @return
+     */
+    ResultVO updateUserPw(UserUpdatePwForm userUpdatePwForm);
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
+    boolean update(User user);
+
+
 
 }

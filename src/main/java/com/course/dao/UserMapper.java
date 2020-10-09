@@ -4,9 +4,16 @@ import com.course.model.User;
 import java.util.List;
 
 public interface UserMapper {
+    int deleteByPrimaryKey(Integer userId);
+
     int insert(User record);
+
+    User selectByPrimaryKey(Integer userId);
 
     List<User> selectAll();
 
-    User selectUserByUsername(String username);
+    int updateByPrimaryKey(User record);
+
+    User selectUserByUsername(String cardId);
+
 }
