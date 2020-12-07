@@ -3,7 +3,7 @@
 <mapper namespace="com.course.dao.TargetMapper" >
   <resultMap id="BaseResultMap" type="com.course.model.Target" >
     <id column="target_id" property="targetId" jdbcType="INTEGER" />
-    <result column="major_course_id" property="majorCourseId" jdbcType="INTEGER" />
+    <result column="plan_id" property="planId" jdbcType="INTEGER" />
     <result column="order" property="order" jdbcType="INTEGER" />
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="target_name" property="targetName" jdbcType="VARCHAR" />
@@ -14,16 +14,16 @@
     where target_id = #{targetId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.course.model.Target" >
-    insert into target (target_id, major_course_id, `order`, 
+    insert into target (target_id, plan_id, `order`, 
       description, target_name, second_requirement_id
       )
-    values (#{targetId,jdbcType=INTEGER}, #{majorCourseId,jdbcType=INTEGER}, #{order,jdbcType=INTEGER}, 
+    values (#{targetId,jdbcType=INTEGER}, #{planId,jdbcType=INTEGER}, #{order,jdbcType=INTEGER}, 
       #{description,jdbcType=VARCHAR}, #{targetName,jdbcType=VARCHAR}, #{secondRequirementId,jdbcType=INTEGER}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.course.model.Target" >
     update target
-    set major_course_id = #{majorCourseId,jdbcType=INTEGER},
+    set plan_id = #{planId,jdbcType=INTEGER},
       `order` = #{order,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR},
       target_name = #{targetName,jdbcType=VARCHAR},
@@ -31,12 +31,17 @@
     where target_id = #{targetId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select target_id, major_course_id, `order`, description, target_name, second_requirement_id
+    select target_id, plan_id, `order`, description, target_name, second_requirement_id
     from target
     where target_id = #{targetId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select target_id, major_course_id, `order`, description, target_name, second_requirement_id
+    select target_id, plan_id, `order`, description, target_name, second_requirement_id
     from target
+  </select>
+  <select id="selectByPlanId" resultMap="BaseResultMap" parameterType="integer">
+    select target_id, plan_id, `order`, description, target_name, second_requirement_id
+    from target
+    where plan_id = #{planId,jdbcType=INTEGER}
   </select>
 </mapper>

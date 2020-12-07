@@ -7,7 +7,9 @@ public class SecondRequirement implements Serializable {
 
     private Integer firstRequirementId;
 
-    private String sequence;
+    private Integer firstRequirementNo;
+
+    private Integer secondRequirementNo;
 
     private String description;
 
@@ -29,12 +31,20 @@ public class SecondRequirement implements Serializable {
         this.firstRequirementId = firstRequirementId;
     }
 
-    public String getSequence() {
-        return sequence;
+    public Integer getFirstRequirementNo() {
+        return firstRequirementNo;
     }
 
-    public void setSequence(String sequence) {
-        this.sequence = sequence == null ? null : sequence.trim();
+    public void setFirstRequirementNo(Integer firstRequirementNo) {
+        this.firstRequirementNo = firstRequirementNo;
+    }
+
+    public Integer getSecondRequirementNo() {
+        return secondRequirementNo;
+    }
+
+    public void setSecondRequirementNo(Integer secondRequirementNo) {
+        this.secondRequirementNo = secondRequirementNo;
     }
 
     public String getDescription() {
@@ -53,7 +63,8 @@ public class SecondRequirement implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", secondRequirementId=").append(secondRequirementId);
         sb.append(", firstRequirementId=").append(firstRequirementId);
-        sb.append(", sequence=").append(sequence);
+        sb.append(", firstRequirementNo=").append(firstRequirementNo);
+        sb.append(", secondRequirementNo=").append(secondRequirementNo);
         sb.append(", description=").append(description);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

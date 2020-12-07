@@ -1,36 +1,64 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.course.dao.SecondRequirementMapper">
-  <resultMap id="BaseResultMap" type="com.course.model.SecondRequirement">
-    <id column="second_requirement_id" jdbcType="INTEGER" property="secondRequirementId" />
-    <result column="first_requirement_id" jdbcType="INTEGER" property="firstRequirementId" />
-    <result column="sequence" jdbcType="VARCHAR" property="sequence" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.course.dao.SecondRequirementMapper" >
+  <resultMap id="BaseResultMap" type="com.course.model.SecondRequirement" >
+    <id column="second_requirement_id" property="secondRequirementId" jdbcType="INTEGER" />
+    <result column="first_requirement_id" property="firstRequirementId" jdbcType="INTEGER" />
+    <result column="first_requirement_no" property="firstRequirementNo" jdbcType="INTEGER" />
+    <result column="second_requirement_no" property="secondRequirementNo" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from second_requirement
     where second_requirement_id = #{secondRequirementId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.course.model.SecondRequirement">
+  <insert id="insert" parameterType="com.course.model.SecondRequirement" >
     insert into second_requirement (second_requirement_id, first_requirement_id, 
-      `sequence`, description)
+      first_requirement_no, second_requirement_no, 
+      description)
     values (#{secondRequirementId,jdbcType=INTEGER}, #{firstRequirementId,jdbcType=INTEGER}, 
-      #{sequence,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+      #{firstRequirementNo,jdbcType=INTEGER}, #{secondRequirementNo,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.course.model.SecondRequirement">
+  <update id="updateByPrimaryKey" parameterType="com.course.model.SecondRequirement" >
     update second_requirement
     set first_requirement_id = #{firstRequirementId,jdbcType=INTEGER},
-      `sequence` = #{sequence,jdbcType=VARCHAR},
+      first_requirement_no = #{firstRequirementNo,jdbcType=INTEGER},
+      second_requirement_no = #{secondRequirementNo,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR}
     where second_requirement_id = #{secondRequirementId,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select second_requirement_id, first_requirement_id, `sequence`, description
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select second_requirement_id, first_requirement_id, first_requirement_no, second_requirement_no, 
+    description
     from second_requirement
     where second_requirement_id = #{secondRequirementId,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select second_requirement_id, first_requirement_id, `sequence`, description
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select second_requirement_id, first_requirement_id, first_requirement_no, second_requirement_no, 
+    description
     from second_requirement
+  </select>
+  <select id="selectByFirstRequirement" resultMap="BaseResultMap" parameterType="integer">
+    select second_requirement_id, first_requirement_id, first_requirement_no, second_requirement_no,
+    description
+    from second_requirement
+    where first_requirement_id = #{firstRequirementId,jdbcType=INTEGER}
+  </select>
+  <select id="selectSecondRequirementSequence" parameterType="integer" resultType="string">
+    select CONCAT(first_requirement_no,'.', second_requirement_no)
+    from second_requirement
+    where second_requirement_id = #{secondRequirementId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByMajorCourseId" resultMap="BaseResultMap">
+        select second_requirement_id, first_requirement_id, first_requirement_no, second_requirement_no,
+               description
+        from second_requirement
+        where first_requirement_id =
+        (select first_requirement_id
+        from first_requirement
+            where major_id = #{majorId,jdbcType=INTEGER} and first_requirement_no = #{firstRequirementNo,jdbcType=INTEGER})
+        and second_requirement_no = #{secondRequirementNo,jdbcType=INTEGER}
   </select>
 </mapper>

@@ -8,9 +8,13 @@ public class ModuleBranch implements Serializable {
 
     private Integer moduleId;
 
+    private String branchName;
+
     private BigDecimal partition;
 
     private Integer secondRequirementId;
+
+    private Integer moduleBranchSequence;
 
     private static final long serialVersionUID = 1L;
 
@@ -30,6 +34,14 @@ public class ModuleBranch implements Serializable {
         this.moduleId = moduleId;
     }
 
+    public String getBranchName() {
+        return branchName;
+    }
+
+    public void setBranchName(String branchName) {
+        this.branchName = branchName == null ? null : branchName.trim();
+    }
+
     public BigDecimal getPartition() {
         return partition;
     }
@@ -46,6 +58,14 @@ public class ModuleBranch implements Serializable {
         this.secondRequirementId = secondRequirementId;
     }
 
+    public Integer getModuleBranchSequence() {
+        return moduleBranchSequence;
+    }
+
+    public void setModuleBranchSequence(Integer moduleBranchSequence) {
+        this.moduleBranchSequence = moduleBranchSequence;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -54,8 +74,10 @@ public class ModuleBranch implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", moduleBranchId=").append(moduleBranchId);
         sb.append(", moduleId=").append(moduleId);
+        sb.append(", branchName=").append(branchName);
         sb.append(", partition=").append(partition);
         sb.append(", secondRequirementId=").append(secondRequirementId);
+        sb.append(", moduleBranchSequence=").append(moduleBranchSequence);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

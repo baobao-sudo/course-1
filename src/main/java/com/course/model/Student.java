@@ -1,17 +1,31 @@
 package com.course.model;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+
 import java.io.Serializable;
+/**
+ *@ClassName Student
+ *@Description 学生实体类
+ *@Author Lenovo
+ *@Date 2020/10/23
+ *@Version 1.0
+**/
 
 public class Student implements Serializable {
     private Integer stuId;
 
+
     private String stuNo;
+
 
     private Integer grade;
 
+
     private Integer majorId;
 
+
     private String name;
+
 
     private String phone;
 

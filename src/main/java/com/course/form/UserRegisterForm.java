@@ -25,4 +25,6 @@ public class UserRegisterForm {
     @ApiModelProperty("权限")
     private Integer role;
 
+    @ApiModelProperty("专业，这个可选，如果是专业负责人就要传一个")
+    private Integer majorId;
 }

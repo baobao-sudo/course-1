@@ -6,9 +6,11 @@ import com.course.form.UserUpdatePwForm;
 import com.course.model.User;
 import com.course.vo.ResultVO;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author zty200329
@@ -37,7 +39,7 @@ public interface UserService {
      * @param userRegisterForm
      * @return
      */
-    ResultVO UserRegister(UserRegisterForm userRegisterForm);
+    ResultVO userRegister(UserRegisterForm userRegisterForm);
 
     /**
      * 登录
@@ -57,8 +59,8 @@ public interface UserService {
 
     /**
      * 修改密码
-     * @param userUpdatePwForm
-     * @return
+     * @param userUpdatePwForm 更新表单
+     * @return 无返回值
      */
     ResultVO updateUserPw(UserUpdatePwForm userUpdatePwForm);
 
@@ -68,6 +70,19 @@ public interface UserService {
      * @return
      */
     boolean update(User user);
+
+    /**
+     * 上传头像
+     * @param file
+     * @return
+     */
+     ResultVO uploadPhoto(MultipartFile file);
+
+    /**
+     * 返回所有教师
+     * @return
+     */
+    ResultVO allTeacher();
 
 
 

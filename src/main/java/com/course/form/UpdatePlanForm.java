@@ -1,5 +1,6 @@
 package com.course.form;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -22,5 +23,5 @@ public class UpdatePlanForm {
     private Integer term;
 
     @ApiModelProperty("老师工号")
-    private Integer teacherId;
+    private String teacherId;
 }

@@ -46,6 +46,16 @@
     from user
     where card_id = #{cardId,jdbcType=VARCHAR}
   </select>
+  <select id="selectUserName" resultType="string" parameterType="string">
+    select `name`
+    from user
+    where card_id =  #{cardId,jdbcType=VARCHAR}
+  </select>
 
+  <select id="selectByRole" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select user_id, card_id, `name`, `password`, `role`, photo, major_id
+    from user
+    where `role` = #{role,jdbcType=INTEGER}
+  </select>
 
 </mapper>

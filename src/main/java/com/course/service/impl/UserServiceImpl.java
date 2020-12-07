@@ -1,7 +1,8 @@
 package com.course.service.impl;
 
-import com.course.dao.StudentMapper;
+import com.course.dao.MajorGradeMapper;
 import com.course.dao.UserMapper;
+import com.course.dto.PhotoUploadDTO;
 import com.course.enums.ResultEnum;
 import com.course.form.LoginForm;
 import com.course.form.UserRegisterForm;
@@ -13,7 +14,9 @@ import com.course.service.UserService;
 import com.course.utils.JwtTokenUtil;
 import com.course.utils.RedisUtil;
 import com.course.utils.ResultVOUtil;
+import com.course.utils.UploadHeadUtil;
 import com.course.vo.ResultVO;
+import com.course.vo.TeacherVO;
 import com.wf.captcha.SpecCaptcha;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -26,13 +29,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author zty200329
@@ -56,8 +58,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private  RedisUtil redisUtil;
 
+
     @Autowired
-    private StudentMapper studentMapper;
+    private MajorGradeMapper majorGradeMapper;
+
+    @Autowired
+    private UploadHeadUtil uploadHeadUtil;
 
     @Override
     public User getUserByUsername(String cardId) {
@@ -80,7 +86,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultVO UserRegister(UserRegisterForm userRegisterForm) {
+    public ResultVO userRegister(UserRegisterForm userRegisterForm) {
         // 如果有验证码，验证码出错下面不执行
         boolean isHave = (userMapper.selectUserByUsername(userRegisterForm.getCardId()) != null);
         if (isHave){
@@ -101,8 +107,12 @@ public class UserServiceImpl implements UserService {
     public ResultVO login(LoginForm loginForm, HttpServletResponse response) {
 
         String redisCode = (String) redisUtil.get(loginForm.getVerKey());
+        log.info("取到验证码:"+redisCode);
+        if(redisCode == null){
+            return ResultVOUtil.error(ResultEnum.CODE_NOT_EXIST);
+        }
         //判断验证码
-        if (loginForm.getVerCode() ==null || !redisCode.equals(loginForm.getVerCode().trim().toLowerCase())) {
+        if (loginForm.getVerCode() == null || !redisCode.equals(loginForm.getVerCode().trim().toLowerCase())) {
             return ResultVOUtil.error(ResultEnum.CAPTCHA_IS_ERROR);
         }
         User user = userMapper.selectUserByUsername(loginForm.getCardId());
@@ -116,14 +126,16 @@ public class UserServiceImpl implements UserService {
         Authentication token = new UsernamePasswordAuthenticationToken(loginForm.getCardId(), loginForm.getPassword(), userDetails.getAuthorities());
         Authentication authentication = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        Integer grade = studentMapper.selectMaxGrade(user.getMajorId());
         final String realToken = jwtTokenUtil.generateToken(userDetails);
         response.addHeader(jwtProperties.getTokenName(), realToken);
         Map<String, Serializable> map = new HashMap<>();
         map.put("name",user.getName());
         map.put("role", user.getRole());
         map.put("token", realToken);
-        map.put("grade",grade);
+        if(user.getRole() == 1){
+            Integer grade = majorGradeMapper.findMinGrade(getCurrentUser().getMajorId());
+            map.put("grade",grade);
+        }
         return ResultVOUtil.success(map);
     }
 
@@ -163,6 +175,28 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean update(User user) {
         return (userMapper.updateByPrimaryKey(user) == 1);
+    }
+
+    @Override
+    public ResultVO uploadPhoto(MultipartFile file) {
+        User user = getCurrentUser();
+        log.info("开始上传图片");
+        PhotoUploadDTO photoUploadDTO = uploadHeadUtil.fileUpload(file);
+        user.setPhoto(photoUploadDTO.getPhotoUrl());
+        update(user);
+        return ResultVOUtil.success();
+    }
+
+    @Override
+    public ResultVO allTeacher() {
+        List<User> users = userMapper.selectByRole(0);
+        List<TeacherVO> teacherVOS = new ArrayList<>();
+        for(User user:users){
+            TeacherVO teacherVO = new TeacherVO();
+            BeanUtils.copyProperties(user,teacherVO);
+            teacherVOS.add(teacherVO);
+        }
+        return ResultVOUtil.success(teacherVOS);
     }
 
 }

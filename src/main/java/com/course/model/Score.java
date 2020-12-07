@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class Score implements Serializable {
-    private Integer stuNo;
+    private String stuNo;
 
     private Integer majorCourseId;
 
@@ -12,12 +12,12 @@ public class Score implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getStuNo() {
+    public String getStuNo() {
         return stuNo;
     }
 
-    public void setStuNo(Integer stuNo) {
-        this.stuNo = stuNo;
+    public void setStuNo(String stuNo) {
+        this.stuNo = stuNo == null ? null : stuNo.trim();
     }
 
     public Integer getMajorCourseId() {

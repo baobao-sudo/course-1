@@ -4,33 +4,53 @@
   <resultMap id="BaseResultMap" type="com.course.model.ModuleBranch" >
     <id column="module_branch_id" property="moduleBranchId" jdbcType="INTEGER" />
     <result column="module_id" property="moduleId" jdbcType="INTEGER" />
+    <result column="branch_name" property="branchName" jdbcType="VARCHAR" />
     <result column="partition" property="partition" jdbcType="DECIMAL" />
     <result column="second_requirement_id" property="secondRequirementId" jdbcType="INTEGER" />
+    <result column="module_branch_sequence" property="moduleBranchSequence" jdbcType="INTEGER" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from module_branch
     where module_branch_id = #{moduleBranchId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.course.model.ModuleBranch" >
-    insert into module_branch (module_branch_id, module_id, `partition`, 
-      second_requirement_id)
-    values (#{moduleBranchId,jdbcType=INTEGER}, #{moduleId,jdbcType=INTEGER}, #{partition,jdbcType=DECIMAL}, 
-      #{secondRequirementId,jdbcType=INTEGER})
+    insert into module_branch (module_branch_id, module_id, branch_name, 
+      `partition`, second_requirement_id, module_branch_sequence
+      )
+    values (#{moduleBranchId,jdbcType=INTEGER}, #{moduleId,jdbcType=INTEGER}, #{branchName,jdbcType=VARCHAR}, 
+      #{partition,jdbcType=DECIMAL}, #{secondRequirementId,jdbcType=INTEGER}, #{moduleBranchSequence,jdbcType=INTEGER}
+      )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.course.model.ModuleBranch" >
     update module_branch
     set module_id = #{moduleId,jdbcType=INTEGER},
+      branch_name = #{branchName,jdbcType=VARCHAR},
       `partition` = #{partition,jdbcType=DECIMAL},
-      second_requirement_id = #{secondRequirementId,jdbcType=INTEGER}
+      second_requirement_id = #{secondRequirementId,jdbcType=INTEGER},
+      module_branch_sequence = #{moduleBranchSequence,jdbcType=INTEGER}
     where module_branch_id = #{moduleBranchId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select module_branch_id, module_id, `partition`, second_requirement_id
+    select module_branch_id, module_id, branch_name, `partition`, second_requirement_id, 
+    module_branch_sequence
     from module_branch
     where module_branch_id = #{moduleBranchId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select module_branch_id, module_id, `partition`, second_requirement_id
+    select module_branch_id, module_id, branch_name, `partition`, second_requirement_id, 
+    module_branch_sequence
     from module_branch
+  </select>
+  <select id="selectByModuleId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+     select module_branch_id, module_id, branch_name, `partition`, second_requirement_id,
+    module_branch_sequence
+    from module_branch
+    where module_id = #{moduleId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getModuleBranchSum" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+    select sum(partition)
+    from module_branch
+    where module_id = #{moduleId,jdbcType=INTEGER}
   </select>
 </mapper>

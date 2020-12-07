@@ -27,4 +27,9 @@
     select major_id, major_name
     from major
   </select>
+  <select id="selectMajorId" parameterType="String" resultType="integer">
+     select major_id, major_name
+    from major
+    where major_name = #{majorName,jdbcType=VARCHAR}
+  </select>
 </mapper>

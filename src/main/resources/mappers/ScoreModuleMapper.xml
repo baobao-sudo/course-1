@@ -33,4 +33,9 @@
     select module_id, plan_id, module_name, percentage
     from score_module
   </select>
+  <select id="selectByPlanId" resultMap="BaseResultMap">
+    select module_id, plan_id, module_name, percentage
+    from score_module
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </select>
 </mapper>

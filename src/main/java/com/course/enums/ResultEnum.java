@@ -26,7 +26,10 @@ public enum ResultEnum {
      */
     CAPTCHA_IS_ERROR(1200,"验证码错误"),
     IS_NOT_PERSONAL_OPERATION(1201,"非本人操作"),
-
+    NO_RESULTS_WERE_QUERIED(1202,"没有相应结果"),
+    PARAMETER_ERROR(1203,"请注意必填项"),
+    CODE_NOT_EXIST(1204,"验证码不存在,请重新获取"),
+    FILE_UPLOAD_ERROR(1205,"文件上传错误"),
 
     AUTHENTICATION_ERROR(401, "用户认证失败,请重新登录"),
     PERMISSION_DENNY(403, "权限不足"),

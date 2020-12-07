@@ -3,6 +3,7 @@ package com.course.service;
 import com.course.form.TargetForm;
 import com.course.form.TargetUpdateFrom;
 import com.course.vo.ResultVO;
+import io.swagger.models.auth.In;
 
 /**
  * @Description 目标设计
@@ -32,6 +33,13 @@ public interface TargetService {
      * @return
      */
     ResultVO deleteTarget(Integer targetId);
+
+    /**
+     * 获取所有毕业目标
+     * @param planId 教学计划ID
+     * @return 返回
+     */
+    ResultVO findAll(Integer planId);
 
 
 }

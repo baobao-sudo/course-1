@@ -1,9 +1,12 @@
 package com.course.controller;
 
 import com.course.accessctro.RoleContro;
+import com.course.dto.PhotoUploadDTO;
+import com.course.enums.ResultEnum;
 import com.course.enums.RoleEnum;
 import com.course.form.LoginForm;
 import com.course.form.UserRegisterForm;
+import com.course.form.UserUpdatePwForm;
 import com.course.model.User;
 import com.course.service.UserService;
 import com.course.utils.ResultVOUtil;
@@ -12,13 +15,16 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 /**
  * @author zty200329
@@ -27,39 +33,42 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @Slf4j
 @RequestMapping("/api/user")
-@Api(tags = "测试接口")
+@Api(tags = "用户接口")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-
     @PostMapping("/insertUser")
     @ApiOperation("注册用户")
-    public ResultVO insertUser(UserRegisterForm registerForm){
-        return userService.UserRegister(registerForm);
+    @RoleContro(role = RoleEnum.SUPPER_ADMIN)
+    public ResultVO insertUser(@Valid UserRegisterForm registerForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            log.info("参数注意必填项！");
+            return ResultVOUtil.error(ResultEnum.PARAMETER_ERROR);
+        }
+        return userService.userRegister(registerForm);
     }
 
-    @PostMapping("/login")
-    @ApiOperation("登录")
-    public ResultVO login(LoginForm loginForm, HttpServletResponse response){
-        return userService.login(loginForm,response);
+    @PostMapping("/updatePw")
+    @ApiOperation("更新密码")
+    public ResultVO updatePassword(@Valid UserUpdatePwForm userUpdatePwForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            log.info("参数注意必填项！");
+            return ResultVOUtil.error(ResultEnum.PARAMETER_ERROR);
+        }
+        return userService.updateUserPw(userUpdatePwForm);
     }
 
-    @PostMapping("/delete")
-    @ApiOperation("测试权限")
-    @RoleContro(role = RoleEnum.ADMIN)
-    public ResultVO delete(String userName){
-        User user = userService.getCurrentUser();
-        log.info(user.toString());
-        return ResultVOUtil.success();
+    @PostMapping("/uploadPhoto")
+    @ApiOperation("上传头像")
+    public ResultVO uploadPhoto(MultipartFile file) {
+        return userService.uploadPhoto(file);
     }
 
-
-    @GetMapping("/captcha")
-    @ApiOperation("获取图片验证码")
-    public ResultVO captcha(HttpServletRequest request, HttpServletResponse response){
-        return userService.captcha(request,response);
+    @GetMapping("/teacher")
+    @ApiOperation("返回所有老师")
+    ResultVO allTeacher() {
+        return userService.allTeacher();
     }
-
 }

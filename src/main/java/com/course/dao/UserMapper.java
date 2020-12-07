@@ -16,4 +16,21 @@ public interface UserMapper {
 
     User selectUserByUsername(String cardId);
 
+    /**
+     * 通过工号获取老师姓名
+     * @param cardId
+     * @return
+     */
+    String selectUserName(String cardId);
+
+
+    /**
+     * 通过角色查询到普通教师
+     * @param role
+     * @return
+     */
+    List<User> selectByRole(Integer role);
+
+
+
 }

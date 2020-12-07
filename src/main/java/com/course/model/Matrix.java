@@ -9,9 +9,9 @@ public class Matrix implements Serializable {
 
     private Integer count;
 
-    private Integer firstRequirementId;
+    private Integer firstRequirementNo;
 
-    private Integer secondRequirementId;
+    private Integer secondRequirementNo;
 
     private Double weight;
 
@@ -41,20 +41,20 @@ public class Matrix implements Serializable {
         this.count = count;
     }
 
-    public Integer getFirstRequirementId() {
-        return firstRequirementId;
+    public Integer getFirstRequirementNo() {
+        return firstRequirementNo;
     }
 
-    public void setFirstRequirementId(Integer firstRequirementId) {
-        this.firstRequirementId = firstRequirementId;
+    public void setFirstRequirementNo(Integer firstRequirementNo) {
+        this.firstRequirementNo = firstRequirementNo;
     }
 
-    public Integer getSecondRequirementId() {
-        return secondRequirementId;
+    public Integer getSecondRequirementNo() {
+        return secondRequirementNo;
     }
 
-    public void setSecondRequirementId(Integer secondRequirementId) {
-        this.secondRequirementId = secondRequirementId;
+    public void setSecondRequirementNo(Integer secondRequirementNo) {
+        this.secondRequirementNo = secondRequirementNo;
     }
 
     public Double getWeight() {
@@ -74,8 +74,8 @@ public class Matrix implements Serializable {
         sb.append(", matrixId=").append(matrixId);
         sb.append(", majorCourseId=").append(majorCourseId);
         sb.append(", count=").append(count);
-        sb.append(", firstRequirementId=").append(firstRequirementId);
-        sb.append(", secondRequirementId=").append(secondRequirementId);
+        sb.append(", firstRequirementNo=").append(firstRequirementNo);
+        sb.append(", secondRequirementNo=").append(secondRequirementNo);
         sb.append(", weight=").append(weight);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

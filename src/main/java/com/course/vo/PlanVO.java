@@ -1,6 +1,10 @@
 package com.course.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * @Description 展示所有教学计划
@@ -9,15 +13,19 @@ import lombok.Data;
  * @Date: Created in 10:27 2020/10/9
  */
 @Data
-public class PlanVO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class PlanVO  implements Serializable {
+
+    private static final long serialVersionUID = -2102227759683681544L;
 
     private Integer planId;
 
-    private String majorCourseName;
-
     private Integer term;
 
-    private Integer teacherId;
+    private String cardId;
+
+    private String teacherName;
 
     private Integer status;
 }

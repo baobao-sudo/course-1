@@ -1,38 +1,51 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.course.dao.FirstRequirementMapper">
-  <resultMap id="BaseResultMap" type="com.course.model.FirstRequirement">
-    <id column="first_requirement_id" jdbcType="INTEGER" property="firstRequirementId" />
-    <result column="detail" jdbcType="VARCHAR" property="detail" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="sequence" jdbcType="INTEGER" property="sequence" />
-    <result column="major_id" jdbcType="INTEGER" property="majorId" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.course.dao.FirstRequirementMapper" >
+  <resultMap id="BaseResultMap" type="com.course.model.FirstRequirement" >
+    <id column="first_requirement_id" property="firstRequirementId" jdbcType="INTEGER" />
+    <result column="first_requirement_no" property="firstRequirementNo" jdbcType="INTEGER" />
+    <result column="detail" property="detail" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="major_id" property="majorId" jdbcType="INTEGER" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from first_requirement
     where first_requirement_id = #{firstRequirementId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.course.model.FirstRequirement">
-    insert into first_requirement (first_requirement_id, detail, description, 
-      `sequence`, major_id)
-    values (#{firstRequirementId,jdbcType=INTEGER}, #{detail,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{sequence,jdbcType=INTEGER}, #{majorId,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.course.model.FirstRequirement" >
+    insert into first_requirement (first_requirement_id, first_requirement_no, 
+      detail, description, major_id
+      )
+    values (#{firstRequirementId,jdbcType=INTEGER}, #{firstRequirementNo,jdbcType=INTEGER}, 
+      #{detail,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{majorId,jdbcType=INTEGER}
+      )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.course.model.FirstRequirement">
+  <update id="updateByPrimaryKey" parameterType="com.course.model.FirstRequirement" >
     update first_requirement
-    set detail = #{detail,jdbcType=VARCHAR},
+    set first_requirement_no = #{firstRequirementNo,jdbcType=INTEGER},
+      detail = #{detail,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      `sequence` = #{sequence,jdbcType=INTEGER},
       major_id = #{majorId,jdbcType=INTEGER}
     where first_requirement_id = #{firstRequirementId,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select first_requirement_id, detail, description, `sequence`, major_id
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select first_requirement_id, first_requirement_no, detail, description, major_id
     from first_requirement
     where first_requirement_id = #{firstRequirementId,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select first_requirement_id, detail, description, `sequence`, major_id
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select first_requirement_id, first_requirement_no, detail, description, major_id
     from first_requirement
+  </select>
+  <select id="getFirstRequirementNo" parameterType="java.lang.Integer" resultType="int">
+    select first_requirement_no
+    from first_requirement
+    where first_requirement_id = #{firstRequirementId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByMajorId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select first_requirement_id, first_requirement_no, detail, description, major_id
+    from first_requirement
+    where major_id = #{majorId,jdbcType=INTEGER}
   </select>
 </mapper>

@@ -1,42 +1,62 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.course.dao.PlanMapper">
-  <resultMap id="BaseResultMap" type="com.course.model.Plan">
-    <id column="plan_id" jdbcType="INTEGER" property="planId" />
-    <result column=" major_course_id" jdbcType="INTEGER" property="majorCourseId" />
-    <result column="term" jdbcType="INTEGER" property="term" />
-    <result column="teacher_id" jdbcType="INTEGER" property="teacherId" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="compute_time" jdbcType="TIMESTAMP" property="computeTime" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.course.dao.PlanMapper" >
+  <resultMap id="BaseResultMap" type="com.course.model.Plan" >
+    <id column="plan_id" property="planId" jdbcType="INTEGER" />
+    <result column=" major_course_id" property="majorCourseId" jdbcType="INTEGER" />
+    <result column="term" property="term" jdbcType="INTEGER" />
+    <result column="card_id" property="cardId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="compute_time" property="computeTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from plan
     where plan_id = #{planId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.course.model.Plan">
-    insert into plan (plan_id, ` major_course_id`, term, 
-      teacher_id, `status`, compute_time
+  <insert id="insert" keyProperty="planId" keyColumn="plan_id" useGeneratedKeys="true" parameterType="com.course.model.Plan" >
+    insert into plan (plan_id, `major_course_id`, term,
+      card_id, `status`, compute_time
       )
     values (#{planId,jdbcType=INTEGER}, #{majorCourseId,jdbcType=INTEGER}, #{term,jdbcType=INTEGER}, 
-      #{teacherId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{computeTime,jdbcType=TIMESTAMP}
+      #{cardId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{computeTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.course.model.Plan">
+  <update id="updateByPrimaryKey" parameterType="com.course.model.Plan" >
     update plan
-    set ` major_course_id` = #{majorCourseId,jdbcType=INTEGER},
+    set `major_course_id` = #{majorCourseId,jdbcType=INTEGER},
       term = #{term,jdbcType=INTEGER},
-      teacher_id = #{teacherId,jdbcType=INTEGER},
+      card_id = #{cardId,jdbcType=VARCHAR},
       `status` = #{status,jdbcType=INTEGER},
       compute_time = #{computeTime,jdbcType=TIMESTAMP}
     where plan_id = #{planId,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select plan_id, ` major_course_id`, term, teacher_id, `status`, compute_time
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select plan_id, `major_course_id`, term, card_id, `status`, compute_time
     from plan
     where plan_id = #{planId,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select plan_id, ` major_course_id`, term, teacher_id, `status`, compute_time
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select plan_id, `major_course_id`, term, card_id, `status`, compute_time
     from plan
   </select>
+  <select id="selectAllByMajor" parameterType="integer" resultMap="BaseResultMap">
+    select plan_id, `major_course_id`, term, `card_id`, `status`, compute_time
+    from plan
+    where `major_course_id` in
+    (select  `major_course_id`
+    from major_course
+    where major_id = #{majorId ,jdbcType=INTEGER})
+  </select>
+  <select id="selectByMajorCourseId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select plan_id, `major_course_id`, term, card_id, `status`, compute_time
+    from plan
+    where `major_course_id` = #{majorCourseId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByTeacher" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select plan_id, `major_course_id`, term, card_id, `status`, compute_time
+    from plan
+    where card_id = #{cardId,jdbcType=VARCHAR}
+  </select>
+
 </mapper>

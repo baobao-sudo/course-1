@@ -2,6 +2,7 @@ package com.course.model;
 
 import java.io.Serializable;
 
+
 public class MajorCourse implements Serializable {
     private Integer majorCourseId;
 

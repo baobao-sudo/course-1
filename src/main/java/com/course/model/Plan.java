@@ -10,7 +10,7 @@ public class Plan implements Serializable {
 
     private Integer term;
 
-    private Integer teacherId;
+    private String cardId;
 
     private Integer status;
 
@@ -42,12 +42,12 @@ public class Plan implements Serializable {
         this.term = term;
     }
 
-    public Integer getTeacherId() {
-        return teacherId;
+    public String getCardId() {
+        return cardId;
     }
 
-    public void setTeacherId(Integer teacherId) {
-        this.teacherId = teacherId;
+    public void setCardId(String cardId) {
+        this.cardId = cardId == null ? null : cardId.trim();
     }
 
     public Integer getStatus() {
@@ -75,7 +75,7 @@ public class Plan implements Serializable {
         sb.append(", planId=").append(planId);
         sb.append(", majorCourseId=").append(majorCourseId);
         sb.append(", term=").append(term);
-        sb.append(", teacherId=").append(teacherId);
+        sb.append(", cardId=").append(cardId);
         sb.append(", status=").append(status);
         sb.append(", computeTime=").append(computeTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);

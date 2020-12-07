@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Target implements Serializable {
     private Integer targetId;
 
-    private Integer majorCourseId;
+    private Integer planId;
 
     private Integer order;
 
@@ -25,12 +25,12 @@ public class Target implements Serializable {
         this.targetId = targetId;
     }
 
-    public Integer getMajorCourseId() {
-        return majorCourseId;
+    public Integer getPlanId() {
+        return planId;
     }
 
-    public void setMajorCourseId(Integer majorCourseId) {
-        this.majorCourseId = majorCourseId;
+    public void setPlanId(Integer planId) {
+        this.planId = planId;
     }
 
     public Integer getOrder() {
@@ -72,7 +72,7 @@ public class Target implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", targetId=").append(targetId);
-        sb.append(", majorCourseId=").append(majorCourseId);
+        sb.append(", planId=").append(planId);
         sb.append(", order=").append(order);
         sb.append(", description=").append(description);
         sb.append(", targetName=").append(targetName);

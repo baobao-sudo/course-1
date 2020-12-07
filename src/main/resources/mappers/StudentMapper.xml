@@ -73,9 +73,68 @@
     five, six, seven, eight, nine, ten, eleven, twelve
     from student
   </select>
-  <select id="selectMaxGrade" resultType="integer" parameterType="integer">
+  <select id="selectMaxGrade" resultType="integer" parameterType="int">
     select max (grade)
     from student
     where major_id = #{majorId,jdbcType=INTEGER}
   </select>
+
+  <select id="selectStudents" resultMap="BaseResultMap">
+    select stu_id, stu_no, grade, major_id, `name`, phone, email, one, two, three, four,
+    five, six, seven, eight, nine, ten, eleven, twelve
+    from student
+    where major_id = #{majorId,jdbcType=INTEGER} and grade = #{grade,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByStudentNo" parameterType="string">
+    delete
+    from student
+    where stu_no  = #{stuNo,jdbcType=VARCHAR}
+  </delete>
+
+  <update id="updateByStudentNo"  parameterType="com.course.model.Student">
+     update student
+    set grade = #{grade,jdbcType=INTEGER},
+      `name` = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      one = #{one,jdbcType=DOUBLE},
+      two = #{two,jdbcType=DOUBLE},
+      three = #{three,jdbcType=DOUBLE},
+      four = #{four,jdbcType=DOUBLE},
+      five = #{five,jdbcType=DOUBLE},
+      six = #{six,jdbcType=DOUBLE},
+      seven = #{seven,jdbcType=DOUBLE},
+      eight = #{eight,jdbcType=DOUBLE},
+      nine = #{nine,jdbcType=DOUBLE},
+      ten = #{ten,jdbcType=DOUBLE},
+      eleven = #{eleven,jdbcType=DOUBLE},
+      twelve = #{twelve,jdbcType=DOUBLE}
+    where stu_no = #{stuNo,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByStudentNo" resultMap="BaseResultMap" >
+     select stu_id, stu_no, grade, major_id, `name`, phone, email, one, two, three, four,
+    five, six, seven, eight, nine, ten, eleven, twelve
+    from student
+    where stu_no = #{stuNo,jdbcType=VARCHAR}
+    and  grade = #{grade,jdbcType=INTEGER}
+    and  major_id = #{majorId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByStudentName" resultMap="BaseResultMap">
+    select stu_id, stu_no, grade, major_id, `name`, phone, email, one, two, three, four,
+    five, six, seven, eight, nine, ten, eleven, twelve
+    from student
+    where `name` = #{name,jdbcType=VARCHAR}
+    and  grade = #{grade,jdbcType=INTEGER}
+    and  major_id = #{majorId,jdbcType=INTEGER}
+  </select>
+  <insert id="upload" parameterType="com.course.dto.StudentDTO">
+     insert into student ( stu_no, grade,
+      major_id, `name`, phone, email)
+    values (#{stuNo,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER},
+     ( select major_id from  major where major_name = #{majorName,jdbcType=INTEGER}), #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+      #{email,jdbcType=VARCHAR})
+  </insert>
 </mapper>

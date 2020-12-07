@@ -2,30 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.course.dao.ScoreMapper" >
   <resultMap id="BaseResultMap" type="com.course.model.Score" >
-    <id column="stu_no" property="stuNo" jdbcType="INTEGER" />
+    <id column="stu_no" property="stuNo" jdbcType="VARCHAR" />
     <result column="major_course_id" property="majorCourseId" jdbcType="INTEGER" />
     <result column="total_score" property="totalScore" jdbcType="DECIMAL" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from score
-    where stu_no = #{stuNo,jdbcType=INTEGER}
+    where stu_no = #{stuNo,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.course.model.Score" >
     insert into score (stu_no, major_course_id, total_score
       )
-    values (#{stuNo,jdbcType=INTEGER}, #{majorCourseId,jdbcType=INTEGER}, #{totalScore,jdbcType=DECIMAL}
+    values (#{stuNo,jdbcType=VARCHAR}, #{majorCourseId,jdbcType=INTEGER}, #{totalScore,jdbcType=DECIMAL}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.course.model.Score" >
     update score
     set major_course_id = #{majorCourseId,jdbcType=INTEGER},
       total_score = #{totalScore,jdbcType=DECIMAL}
-    where stu_no = #{stuNo,jdbcType=INTEGER}
+    where stu_no = #{stuNo,jdbcType=VARCHAR}
   </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select stu_no, major_course_id, total_score
     from score
-    where stu_no = #{stuNo,jdbcType=INTEGER}
+    where stu_no = #{stuNo,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select stu_no, major_course_id, total_score

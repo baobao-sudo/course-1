@@ -2,37 +2,58 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.course.dao.MajorCourseMapper">
   <resultMap id="BaseResultMap" type="com.course.model.MajorCourse">
-    <id column=" major_course_id" jdbcType="INTEGER" property="majorCourseId" />
-    <result column=" major_id" jdbcType="INTEGER" property="majorId" />
+    <id column="major_course_id" jdbcType="INTEGER" property="majorCourseId" />
+    <result column="major_id" jdbcType="INTEGER" property="majorId" />
     <result column="grade" jdbcType="INTEGER" property="grade" />
     <result column="course_id" jdbcType="INTEGER" property="courseId" />
     <result column="type_id" jdbcType="INTEGER" property="typeId" />
   </resultMap>
+  <resultMap id="MajorCourseResultMap" type="com.course.dto.MajorCourseDTO">
+    <id column="major_course_id" jdbcType="INTEGER" property="majorCourseId" />
+    <result property="courseName" jdbcType="VARCHAR" column="name" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
+  </resultMap>
+  <select id="selectMajorCourse" resultMap="MajorCourseResultMap">
+    select `major_course_id`, `name`, `grade` from major_course
+    join course on `major_course`.course_id = course.course_id
+    where major_id = #{majorId,jdbcType=INTEGER} and grade = #{grade,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from major_course
-    where ` major_course_id` = #{majorCourseId,jdbcType=INTEGER}
+    where `major_course_id` = #{majorCourseId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.course.model.MajorCourse">
-    insert into major_course (` major_course_id`, ` major_id`, grade, 
+  <insert id="insert" keyProperty="majorCourseId" keyColumn="major_course_id" useGeneratedKeys="true" parameterType="com.course.model.MajorCourse">
+    insert into major_course (`major_course_id`, `major_id`, grade,
       course_id, type_id)
     values (#{majorCourseId,jdbcType=INTEGER}, #{majorId,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, 
       #{courseId,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.course.model.MajorCourse">
     update major_course
-    set ` major_id` = #{majorId,jdbcType=INTEGER},
+    set `major_id` = #{majorId,jdbcType=INTEGER},
       grade = #{grade,jdbcType=INTEGER},
       course_id = #{courseId,jdbcType=INTEGER},
       type_id = #{typeId,jdbcType=INTEGER}
-    where ` major_course_id` = #{majorCourseId,jdbcType=INTEGER}
+    where `major_course_id` = #{majorCourseId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select ` major_course_id`, ` major_id`, grade, course_id, type_id
+    select `major_course_id`, `major_id`, grade, course_id, type_id
     from major_course
-    where ` major_course_id` = #{majorCourseId,jdbcType=INTEGER}
+    where `major_course_id` = #{majorCourseId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select ` major_course_id`, ` major_id`, grade, course_id, type_id
+    select `major_course_id`, `major_id`, grade, course_id, type_id
     from major_course
+  </select>
+  <select id="selectCourseName" parameterType="integer" resultType="String">
+     select  `name` from major_course
+    join course on major_course.course_id = course.course_id
+    where `major_course_id` =  #{majorCourseId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAllMajorCourse" resultMap="BaseResultMap">
+    select `major_course_id`, `major_id`, grade, course_id, type_id
+    from major_course
+    where `major_id` = #{majorId,jdbcType=INTEGER} and grade = #{grade,jdbcType=INTEGER}
   </select>
 </mapper>

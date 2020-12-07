@@ -35,4 +35,12 @@
     select module_score_id, stu_no, module_id, point, module_score_status
     from module_score
   </select>
+
+  <select id="selectByStudentAndModuleId" resultMap="BaseResultMap">
+    select module_score_id, stu_no, module_id, point, module_score_status
+    from module_score
+    where stu_no = #{stuNo,jdbcType=VARCHAR}
+      and module_id = #{moduleId,jdbcType=INTEGER}
+  </select>
+
 </mapper>

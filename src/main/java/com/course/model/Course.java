@@ -1,22 +1,11 @@
 package com.course.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
-/**
- *@ClassName Course
- *@Description 课程表
- *@Author Lenovo
- *@Date 2020/10/7
- *@Version 1.0
-**/
 
 public class Course implements Serializable {
     private Integer courseId;
 
-    private Integer credit;
+    private Double credit;
 
     private String name;
 
@@ -30,11 +19,11 @@ public class Course implements Serializable {
         this.courseId = courseId;
     }
 
-    public Integer getCredit() {
+    public Double getCredit() {
         return credit;
     }
 
-    public void setCredit(Integer credit) {
+    public void setCredit(Double credit) {
         this.credit = credit;
     }
 

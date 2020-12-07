@@ -16,6 +16,11 @@
       point)
     values (#{moduleBranchScoreId,jdbcType=INTEGER}, #{stuNo,jdbcType=VARCHAR}, #{moduleBranchId,jdbcType=INTEGER}, 
       #{point,jdbcType=DECIMAL})
+      ON DUPLICATE KEY UPDATE
+      module_branch_score_id = VALUES(module_branch_score_id),
+      stu_no = VALUES(stu_no),
+      module_branch_id = VALUES(module_branch_id),
+      point = VALUES(point)
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.course.model.ModuleBranchScore" >
     update module_branch_score
@@ -32,5 +37,14 @@
   <select id="selectAll" resultMap="BaseResultMap" >
     select module_branch_score_id, stu_no, module_branch_id, point
     from module_branch_score
+  </select>
+  <select id="selectByModuleId" resultMap="BaseResultMap">
+    select module_branch_score_id, stu_no, module_branch_id, point
+    from module_branch_score
+    where stu_no = #{stuNo,jdbcType=VARCHAR}
+    and module_branch_id in
+    (select module_branch_id
+    from module_branch
+    where module_id = #{moduleId,jdbcType=INTEGER})
   </select>
 </mapper>

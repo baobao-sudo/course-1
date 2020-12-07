@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.dao.MajorGradeMapper">
+  <resultMap id="BaseResultMap" type="com.course.model.MajorGrade">
+    <id column="major_grade_id" jdbcType="INTEGER" property="majorGradeId" />
+    <result column="major_id" jdbcType="INTEGER" property="majorId" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from major_grade
+    where major_grade_id = #{majorGradeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.course.model.MajorGrade">
+    insert into major_grade (major_grade_id, major_id, grade
+      )
+    values (#{majorGradeId,jdbcType=INTEGER}, #{majorId,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.course.model.MajorGrade">
+    update major_grade
+    set major_id = #{majorId,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=INTEGER}
+    where major_grade_id = #{majorGradeId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select major_grade_id, major_id, grade
+    from major_grade
+    where major_grade_id = #{majorGradeId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select major_grade_id, major_id, grade
+    from major_grade
+  </select>
+  <delete id="deleteGrade" parameterType="java.lang.Integer">
+     delete from major_grade
+    where grade = #{grade,jdbcType=INTEGER}
+    and major_id = #{majorId,jdbcType=INTEGER}
+  </delete>
+
+  <select id="findMinGrade" parameterType="java.lang.Integer" resultType="int">
+    select MAX(grade)
+    from major_grade
+    where major_id = #{majorId,jdbcType=INTEGER}
+  </select>
+</mapper>

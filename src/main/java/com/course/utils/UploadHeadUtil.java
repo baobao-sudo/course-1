@@ -20,7 +20,7 @@ import java.io.IOException;
 
 @Slf4j
 @Component
-public class UploadUtil {
+public class UploadHeadUtil {
     @Value("${img.location}")
     private String imageFilePath;
     @Value("${img.url}")
@@ -30,6 +30,7 @@ public class UploadUtil {
         log.info("开始上传图片");
         // 获取文件名
         String fileName = file.getOriginalFilename();
+        assert fileName != null;
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
         String newFileName = System.currentTimeMillis() + "." + suffix;
         log.info("上传文件文件名称：{}", newFileName);
@@ -38,7 +39,6 @@ public class UploadUtil {
         //文件存储地址：imageFilePath+newFileName
         log.info(imageFilePath + newFileName);
         try {
-
             FileUtils.copyInputStreamToFile(file.getInputStream(), new File(imageFilePath + newFileName));
         } catch (IOException e) {
             e.printStackTrace();

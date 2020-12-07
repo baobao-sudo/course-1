@@ -13,4 +13,11 @@ public interface ScoreModuleMapper {
     List<ScoreModule> selectAll();
 
     int updateByPrimaryKey(ScoreModule record);
+
+    /**
+     * 通过教学计划获取所有配分模块
+     * @param planId
+     * @return
+     */
+    List<ScoreModule> selectByPlanId(Integer planId);
 }
